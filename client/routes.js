@@ -1,11 +1,14 @@
-import { Route, Router, IndexRoute, browserHistory } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router';
 import App from './App';
+import Home from './src/components/Home';
 
 const router = (
-  <Router history={browserHistory}>
-    <Route path='/' component={App}>
-    </Route>
-  </Router>
+  <BrowserRouter>
+    <App>
+      <Route path='/' component={Home} />
+    </App>
+  </BrowserRouter>
 );
 
 export default router;

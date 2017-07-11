@@ -1,19 +1,26 @@
-const path = require('path'),
-      express = require('express'),
-      pkg = require('./package');
+import path from 'path';
+import express from 'express';
+import pkg from './package';
+
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackConfig from './webpack.config.dev';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
 const app = express();
 
-// 设置模板目录
-app.set('views', path.join(__dirname, 'views'));
-// 设置模板引擎为 ejs
-app.set('view engine', 'html');
+const compiler = webpack(webpackConfig);
+app.use(webpackMiddleware(compiler, {
+  hot: true,
+  publicPath: webpackConfig.output.publicPath,
+  noInfo: true
+}));
+app.use(webpackHotMiddleware(compiler));
 
-// 设置静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 路由
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './views/index.html'));
 });
 
