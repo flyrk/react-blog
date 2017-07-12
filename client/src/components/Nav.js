@@ -11,7 +11,7 @@ class Nav extends Component {
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
-              <li className="active"><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
+              <li><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
               <li><a href="#">About</a></li>
             </ul>
             <form className="navbar-form navbar-left">
