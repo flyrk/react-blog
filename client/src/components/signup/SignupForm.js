@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { validateInput } from '../../../../shared/validations/signup';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class SignupForm extends Component {
   static propTypes = {
@@ -18,17 +20,28 @@ class SignupForm extends Component {
     };
   }
 
+  isValid = () => {
+    const { errors, isValid } = validateInput(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  };
+
   handlerOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
   handlerOnSubmit = (e) => {
-    this.setState({ errors: {}, isLoading: true });
     e.preventDefault();
-    this.props.userSignupRequest(this.state).then(
-      () => {},
-      (err) => this.setState({ errors: err.response.data, isLoading: false })
-    );
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.userSignupRequest(this.state).then(
+        () => {},
+        (err) => this.setState({ errors: err.response.data, isLoading: false })
+      );
+    }
+
   };
 
   render() {
@@ -36,53 +49,42 @@ class SignupForm extends Component {
     return (
       <form onSubmit={this.handlerOnSubmit}>
         <h1>欢迎加入我的博客！</h1>
-        <div className={classnames('form-group', { 'has-error': errors.username })}>
-          <label className='control-label'>用户名:</label>
-          <input
-            value={this.state.username}
-            onChange={this.handlerOnChange}
-            type='text'
-            name='username'
-            className='form-control'
-          />
-          {errors.username && <span className='help-block'>{errors.username}</span>}
-        </div>
+        <TextFieldGroup
+          field='username'
+          value={this.state.username}
+          label='用户名'
+          handlerOnChange={this.handlerOnChange}
+          type='text'
+          error={errors.username}
+        />
 
-        <div className={classnames('form-group', { 'has-error': errors.email })}>
-          <label className='control-label'>邮箱:</label>
-          <input
-            value={this.state.email}
-            onChange={this.handlerOnChange}
-            type='text'
-            name='email'
-            className='form-control'
-          />
-          {errors.email && <span className='help-block'>{errors.email}</span>}
-        </div>
+        <TextFieldGroup
+          field='email'
+          value={this.state.email}
+          label='邮箱'
+          handlerOnChange={this.handlerOnChange}
+          type='text'
+          error={errors.email}
+        />
 
-        <div className={classnames('form-group', { 'has-error': errors.password })}>
-          <label className='control-label'>密码:</label>
-          <input
-            value={this.state.password}
-            onChange={this.handlerOnChange}
-            type='password'
-            name='password'
-            className='form-control'
-          />
-          {errors.password && <span className='help-block'>{errors.password}</span>}
-        </div>
+        <TextFieldGroup
+          field='password'
+          value={this.state.password}
+          label='密码'
+          handlerOnChange={this.handlerOnChange}
+          type='password'
+          error={errors.password}
+        />
 
-        <div className={classnames('form-group', { 'has-error': errors.passwordConfig })}>
-          <label className='control-label'>确认密码:</label>
-          <input
-            value={this.state.passwordConfig}
-            onChange={this.handlerOnChange}
-            type='password'
-            name='passwordConfig'
-            className='form-control'
-          />
-          {errors.passwordConfig && <span className='help-block'>{errors.passwordConfig}</span>}
-        </div>
+        <TextFieldGroup
+          field='passwordConfig'
+          value={this.state.passwordConfig}
+          label='确认密码'
+          handlerOnChange={this.handlerOnChange}
+          type='password'
+          error={errors.passwordConfig}
+        />
+
         <div className='form-group'>
           <button disabled={this.state.isLoading} className='btn btn-primary btn-lg'>
             注册
