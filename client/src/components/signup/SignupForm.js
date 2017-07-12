@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { validateInput } from '../../../../shared/validations/signup';
@@ -6,7 +7,8 @@ import TextFieldGroup from '../common/TextFieldGroup';
 
 class SignupForm extends Component {
   static propTypes = {
-    userSignupRequest: PropTypes.func.isRequired
+    userSignupRequest: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
   }
   constructor(props) {
     super(props);
@@ -37,7 +39,9 @@ class SignupForm extends Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state).then(
-        () => {},
+        () => {
+          this.props.history.push('/');
+        },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
       );
     }
@@ -95,4 +99,4 @@ class SignupForm extends Component {
   }
 }
 
-export default SignupForm;
+export default withRouter(SignupForm);
