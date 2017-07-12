@@ -40,6 +40,10 @@ class SignupForm extends Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state).then(
         () => {
+          this.props.addFlashMessage({
+            type: 'success',
+            text:'你已登录成功，欢迎回来！'
+          });
           this.props.history.push('/');
         },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
@@ -91,7 +95,7 @@ class SignupForm extends Component {
 
         <div className='form-group'>
           <button disabled={this.state.isLoading} className='btn btn-primary btn-lg'>
-            注册
+            登录
           </button>
         </div>
       </form>
