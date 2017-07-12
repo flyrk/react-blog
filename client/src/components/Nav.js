@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Nav extends Component {
   render() {
     return (
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
             <a className="navbar-brand" href="#">Brand</a>
@@ -21,7 +21,7 @@ class Nav extends Component {
               <button type="submit" className="btn btn-default">Submit</button>
             </form>
             <ul className="nav navbar-nav navbar-right">
-              <li><a href='#'>Sign up</a></li>
+              <li><Link to='/signup'>Sign up</Link></li>
             </ul>
           </div>
         </div>

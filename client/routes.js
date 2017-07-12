@@ -1,14 +1,15 @@
-import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import Home from './src/components/Home';
+import SignupPage from './src/components/signup/SignupPage';
 
 const router = (
-  <BrowserRouter>
+  <Router>
     <App>
-      <Route path='/' component={Home} />
+      <Route exact path='/' component={Home} />
+      <Route path='/signup' component={SignupPage} />
     </App>
-  </BrowserRouter>
+  </Router>
 );
 
 export default router;
