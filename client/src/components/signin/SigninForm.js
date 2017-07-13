@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { validateInputSignup } from '../../../../shared/validations/signup';
+import { validateInputSignin } from '../../../../shared/validations/signin';
 import TextFieldGroup from '../common/TextFieldGroup';
 
-class SignupForm extends Component {
+class SigninForm extends Component {
   static propTypes = {
-    userSignupRequest: PropTypes.func.isRequired,
+    userSigninRequest: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired
   }
   constructor(props) {
@@ -16,14 +16,13 @@ class SignupForm extends Component {
       username: '',
       email: '',
       password: '',
-      passwordConfig: '',
       errors: {},
       isLoading: false
     };
   }
 
   isValid = () => {
-    const { errors, isValid } = validateInputSignup(this.state);
+    const { errors, isValid } = validateInputSignin(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -38,12 +37,12 @@ class SignupForm extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.userSignupRequest(this.state).then(
+      this.props.userSigninRequest(this.state).then(
         () => {
-          this.props.addFlashMessage({
-            type: 'success',
-            text:'你已注册成功，欢迎回来！'
-          });
+          // this.props.addFlashMessage({
+          //   type: 'success',
+          //   text:'你已登录成功，欢迎回来！'
+          // });
           this.props.history.push('/');
         },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
@@ -56,7 +55,7 @@ class SignupForm extends Component {
     const { errors } = this.state;
     return (
       <form onSubmit={this.handlerOnSubmit}>
-        <h1>欢迎加入我的博客！</h1>
+        <h1>欢迎登录我的博客！</h1>
         <TextFieldGroup
           field='username'
           value={this.state.username}
@@ -84,18 +83,9 @@ class SignupForm extends Component {
           error={errors.password}
         />
 
-        <TextFieldGroup
-          field='passwordConfig'
-          value={this.state.passwordConfig}
-          label='确认密码'
-          handlerOnChange={this.handlerOnChange}
-          type='password'
-          error={errors.passwordConfig}
-        />
-
         <div className='form-group'>
           <button disabled={this.state.isLoading} className='btn btn-primary btn-lg'>
-            注册
+            登录
           </button>
         </div>
       </form>
@@ -103,4 +93,4 @@ class SignupForm extends Component {
   }
 }
 
-export default withRouter(SignupForm);
+export default withRouter(SigninForm);

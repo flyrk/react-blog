@@ -21,7 +21,8 @@ class Nav extends Component {
               <button type="submit" className="btn btn-default">Submit</button>
             </form>
             <ul className="nav navbar-nav navbar-right">
-              <li><Link to='/signup'>Sign up</Link></li>
+              <li><Link to='/signin'>登录</Link></li>
+              <li><Link to='/signup'>注册</Link></li>
             </ul>
           </div>
         </div>
