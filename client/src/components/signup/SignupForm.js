@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { validateInputSignup } from '../../../../shared/validations/signup';
+import { commonValidationsSignup } from '../../../../shared/validations/signup';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 class SignupForm extends Component {
@@ -23,7 +23,7 @@ class SignupForm extends Component {
   }
 
   isValid = () => {
-    const { errors, isValid } = validateInputSignup(this.state);
+    const { errors, isValid } = commonValidationsSignup(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
