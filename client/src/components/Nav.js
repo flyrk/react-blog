@@ -12,7 +12,7 @@ class Nav extends Component {
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
-              <li><a href="#">About</a></li>
+              <li><Link to="/about">About</Link></li>
             </ul>
             <form className="navbar-form navbar-left">
               <div className="form-group">

@@ -26,6 +26,18 @@ export default {
           path.join(__dirname, 'shared')
         ],
         loaders: [ 'react-hot-loader', 'babel-loader' ]
+      },
+      {
+        test: /\.css$/,
+        include: [
+          path.join(__dirname, 'client'),
+          path.join(__dirname, 'shared')
+        ],
+        loaders: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: ['url-loader?limit=10000', 'img-loader']
       }
     ]
   },
