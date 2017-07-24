@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { validateInputSignin } from '../../../../shared/validations/signin';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { userSigninRequest } from '../../actions/signActions';
+import { signin } from '../../actions/authActions';
 
 class SigninForm extends Component {
   static propTypes = {
-    userSigninRequest: PropTypes.func.isRequired,
+    signin: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired
   }
   constructor(props) {
@@ -38,7 +38,7 @@ class SigninForm extends Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.userSigninRequest(this.state).then(
+      this.props.signin(this.state).then(
         (res) => {
           // this.props.addFlashMessage({
           //   type: 'success',
@@ -87,4 +87,4 @@ class SigninForm extends Component {
   }
 }
 
-export default connect(null, { userSigninRequest })(withRouter(SigninForm));
+export default connect(null, { signin })(withRouter(SigninForm));
