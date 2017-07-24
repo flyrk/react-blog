@@ -10,7 +10,7 @@ export function setCurrentUser(user) {
   };
 }
 
-export function logout() {
+export function logout() {    // 注销当前账户
   return dispatch => {
     localStorage.removeItem('jwtToken');
     setAuthorizationToken(false);
