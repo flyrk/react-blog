@@ -44,35 +44,4 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.get('/', (req, res, next) => {
-  const { errors, isValid } = validateInputSignin(req.query);
-  if (isValid) {
-    const { username, password, email } = req.query;
-    Users.findOne({ username })
-      .exec((err, user) => {
-        if (err) res.json({ error: err });
-        if (user) {
-          if (user.password_digest === password && user.email === email) {
-            res.json({ success: true });
-          } else {
-            if (user.password_digest !== password) {
-              errors.password = '密码错误！';
-            }
-            if (user.email !== email) {
-              errors.email = '邮箱错误！';
-            }
-            res.status(400).json(errors);
-          }
-        } else {
-          errors.username = '用户名不存在！';
-          res.status(400).json(errors);
-        }
-
-
-    });
-  } else {
-    res.status(400).json(errors);
-  }
-});
-
 export default router;

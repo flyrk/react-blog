@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { validateInputSignin } from '../../../../shared/validations/signin';
 import TextFieldGroup from '../common/TextFieldGroup';
+import { userSigninRequest } from '../../actions/signActions';
 
 class SigninForm extends Component {
   static propTypes = {
@@ -13,8 +15,7 @@ class SigninForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      email: '',
+      identifier: '',
       password: '',
       errors: {},
       isLoading: false
@@ -38,7 +39,7 @@ class SigninForm extends Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSigninRequest(this.state).then(
-        () => {
+        (res) => {
           // this.props.addFlashMessage({
           //   type: 'success',
           //   text:'你已登录成功，欢迎回来！'
@@ -52,31 +53,24 @@ class SigninForm extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { errors, identifier, password, isLoading } = this.state;
     return (
       <form onSubmit={this.handlerOnSubmit}>
-        <h1>欢迎登录我的博客！</h1>
-        <TextFieldGroup
-          field='username'
-          value={this.state.username}
-          label='用户名'
-          handlerOnChange={this.handlerOnChange}
-          type='text'
-          error={errors.username}
-        />
+        <h1>登录</h1>
 
+        { errors.form && <div className='alert alert-danger'>{errors.form}</div>}
         <TextFieldGroup
-          field='email'
-          value={this.state.email}
-          label='邮箱'
+          field='identifier'
+          value={identifier}
+          label='用户名/邮箱'
           handlerOnChange={this.handlerOnChange}
           type='text'
-          error={errors.email}
+          error={errors.identifier}
         />
 
         <TextFieldGroup
           field='password'
-          value={this.state.password}
+          value={password}
           label='密码'
           handlerOnChange={this.handlerOnChange}
           type='password'
@@ -84,7 +78,7 @@ class SigninForm extends Component {
         />
 
         <div className='form-group'>
-          <button disabled={this.state.isLoading} className='btn btn-primary btn-lg'>
+          <button disabled={isLoading} className='btn btn-primary btn-lg'>
             登录
           </button>
         </div>
@@ -93,4 +87,4 @@ class SigninForm extends Component {
   }
 }
 
-export default withRouter(SigninForm);
+export default connect(null, { userSigninRequest })(withRouter(SigninForm));

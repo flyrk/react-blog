@@ -8,13 +8,6 @@ export function userSignupRequest(userData) {
 
 export function userSigninRequest(userData) {
   return dispatch => {
-    const { username, password, email } = userData;
-    return axios.get('/api/users', {
-      params: {
-        username,
-        password,
-        email
-      }
-    });
+    return axios.post('/api/auth', userData);
   };
 }

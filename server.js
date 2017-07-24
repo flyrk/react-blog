@@ -11,6 +11,7 @@ import webpackConfig from './webpack.config.dev';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import users from './routes/users';
+import auth from './routes/auth';
 
 mongoose.connect('mongodb://localhost/myblog');
 mongoose.connection.on('error', function() {
@@ -39,6 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
  * add user to database
  */
 app.use('/api/users', users);
+
+/*
+ * POST /api/auth
+ * sign in user
+ */
+app.use('/api/auth', auth);
 
 // 路由
 app.get('/*', (req, res) => {
