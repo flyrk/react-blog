@@ -33,22 +33,18 @@ class Nav extends Component {
       </ul>
     );
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#">Brand</a>
+            <div className="navbar-brand">
+              <Link to="/">Flyrk</Link>
+            </div>
           </div>
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
               <li><Link to="/about">About</Link></li>
             </ul>
-            <form className="navbar-form navbar-left">
-              <div className="form-group">
-                <input type="text" className="form-control" placeholder="Search" />
-              </div>
-              <button type="submit" className="btn btn-default">Submit</button>
-            </form>
 
             { isAuthenticated ? userLinks : guestLinks }
           </div>

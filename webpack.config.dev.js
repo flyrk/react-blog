@@ -33,11 +33,11 @@ export default {
           path.join(__dirname, 'client'),
           path.join(__dirname, 'shared')
         ],
-        loaders: [ 'style-loader', 'css-loader' ]
+        loaders: [ 'style-loader', 'css-loader', 'resolve-url-loader' ]
       },
       {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-        loader: ['url-loader?limit=10000', 'img-loader']
+        loaders: ['url-loader?limit=10000', 'img-loader']
       }
     ]
   },

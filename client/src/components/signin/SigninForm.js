@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { validateInputSignin } from '../../../../shared/validations/signin';
 import TextFieldGroup from '../common/TextFieldGroup';
-import { signin } from '../../actions/authActions';
 
 class SigninForm extends Component {
   static propTypes = {
     signin: PropTypes.func.isRequired,
+    addFlashMessage: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired
   }
   constructor(props) {
@@ -40,10 +39,10 @@ class SigninForm extends Component {
       this.setState({ errors: {}, isLoading: true });
       this.props.signin(this.state).then(
         (res) => {
-          // this.props.addFlashMessage({
-          //   type: 'success',
-          //   text:'你已登录成功，欢迎回来！'
-          // });
+          this.props.addFlashMessage({
+            type: 'success',
+            text:'你已登录成功，欢迎回来！'
+          });
           this.props.history.push('/');
         },
         (err) => this.setState({ errors: err.response.data, isLoading: false })
@@ -87,4 +86,4 @@ class SigninForm extends Component {
   }
 }
 
-export default connect(null, { signin })(withRouter(SigninForm));
+export default withRouter(SigninForm);

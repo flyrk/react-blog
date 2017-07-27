@@ -10,6 +10,8 @@ import { setCurrentUser } from './src/actions/authActions';
 
 import rootReducer from './rootReducer';
 
+import './client.css';
+
 const store = createStore(
   rootReducer,
   compose(

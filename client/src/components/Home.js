@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PageList from './Page/PageList';
+import Information from './Info/Information';
 
 class Home extends Component {
   render() {
@@ -7,6 +8,7 @@ class Home extends Component {
       <div className='container-fluid'>
         <div className='row'>
           <PageList />
+          <Information />
         </div>
       </div>
     );
